@@ -5,12 +5,12 @@
 # Use ubuntu as a parent image
 FROM ubuntu:16.04
 
-MAINTAINER Hiroko Tanaka <htrokoroko@gmail.com>
-
+MAINTAINER Hiroko Tanaka <hiroko@hgc.jp>
 
 LABEL Description="MEGAHIT v1.1.2" \
       Project="Genomon-Project Dockerization" \
       Version="1.0"
+      
 # Install required libraries in order to create MEGAHIT
 # build-essential package : the set of developement tools (gcc,g++ e.t.c) 
 RUN apt-get update && apt-get install -y \
@@ -23,5 +23,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /tools
 RUN git clone https://github.com/voutcn/megahit.git \
- && cd /tools/megahit && make && cd ..
+ && cd /tools/megahit && make 
+ENV PATH /tools/megahit:$PATH
 
+WORKDIR /work
